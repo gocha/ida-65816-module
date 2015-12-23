@@ -1,8 +1,8 @@
 
 #include "m65816.hpp"
 
-#define DI(itype, len, addr_mode, cpus) {(itype), (addr_mode), (cpus)},
-#define DV(itype, len, addr_mode, cpus, flags) {(itype), (addr_mode), (cpus), (flags)},
+#define DI(itype, len, addr_mode, cpus) { (itype), (addr_mode), (cpus) },
+#define DV(itype, len, addr_mode, cpus, flags) { (itype), (addr_mode), (cpus), (flags) },
 
 static const struct opcode_info_t opinfos[] =
 {
@@ -430,8 +430,8 @@ int idaapi ana(void)
         cmd.Op1.type = o_near;
       }
       else if ( cmd.itype == M65816_stx || cmd.itype == M65816_sty
-        || cmd.itype == M65816_ldx || cmd.itype == M65816_ldy
-        || cmd.itype == M65816_cpx || cmd.itype == M65816_cpy)
+             || cmd.itype == M65816_ldx || cmd.itype == M65816_ldy
+             || cmd.itype == M65816_cpx || cmd.itype == M65816_cpy )
       {
         cmd.Op1.dtyp = is_xy_16_bits() ? dt_word : dt_byte;
       }
@@ -457,7 +457,7 @@ int idaapi ana(void)
       cmd.Op1.addr   = ua_next_word();
       if ( cmd.itype == M65816_ldx || cmd.itype == M65816_ldy )
         cmd.Op1.dtyp = is_xy_16_bits() ? dt_word : dt_byte;
-        else
+      else
         cmd.Op1.dtyp = is_acc_16_bits() ? dt_word : dt_byte;
       break;
     case ABS_LONG_IX:
@@ -491,7 +491,7 @@ int idaapi ana(void)
       cmd.Op1.addr   = ua_next_byte();
       if ( cmd.itype == M65816_stx || cmd.itype == M65816_sty
         || cmd.itype == M65816_ldx || cmd.itype == M65816_ldy
-        || cmd.itype == M65816_cpx || cmd.itype == M65816_cpy)
+        || cmd.itype == M65816_cpx || cmd.itype == M65816_cpy )
       {
         cmd.Op1.dtyp = is_xy_16_bits() ? dt_word : dt_byte;
       }
@@ -506,7 +506,7 @@ int idaapi ana(void)
       cmd.Op1.phrase = opinfo.addr == DP_IX ? rDX : rDY;
       cmd.Op1.addr   = ua_next_byte();
       if ( cmd.itype == M65816_stx || cmd.itype == M65816_sty
-        || cmd.itype == M65816_ldx || cmd.itype == M65816_ldy)
+        || cmd.itype == M65816_ldx || cmd.itype == M65816_ldy )
       {
         cmd.Op1.dtyp = is_xy_16_bits() ? dt_word : dt_byte;
       }

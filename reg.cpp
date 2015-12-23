@@ -140,7 +140,7 @@ static int idaapi notify(processor_t::idp_notify msgid, ...)
         sptr->defsr[rDs - ph.regFirstSreg] = sptr->sel;
 
         // detect SNES bank 0
-        if (xlat(0) == (sptr->startEA & 0xff0000))
+        if ( xlat(0) == (sptr->startEA & 0xff0000) )
         {
           // initial bank must be $00 (especially important on HiROM)
           // Example: Donkey Kong Country 2 - Emulation_mode_RESET
@@ -291,16 +291,20 @@ static int idaapi notify(processor_t::idp_notify msgid, ...)
           uint16 offset = startEA & 0xffff;
           ea_t newEA = xlat((value << 16) + offset);
           if ( startEA != newEA )
-            warning("Inconsistent program bank number ($%02X:%04X != $%02X:%04X)", startEA >> 16, offset, value, offset);
+            warning("Inconsistent program bank number ($%02X:%04X != $%02X:%04X)",
+                    uint32(startEA >> 16),
+                    offset,
+                    uint8(value),
+                    offset);
         }
       }
       break;
     case processor_t::may_be_func:
       retcode = 0;
       ea_t cref_addr;
-      for( cref_addr = get_first_cref_to(cmd.ea);
-           cref_addr != BADADDR;
-           cref_addr = get_next_cref_to(cmd.ea, cref_addr) )
+      for ( cref_addr = get_first_cref_to(cmd.ea);
+            cref_addr != BADADDR;
+            cref_addr = get_next_cref_to(cmd.ea, cref_addr) )
       {
         uint8 opcode = get_byte(cref_addr);
         const struct opcode_info_t &opinfo = get_opcode_info(opcode);

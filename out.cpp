@@ -69,12 +69,11 @@ static void out_addr_near_b(op_t &x)
   }
 }
 
-//----------------------------------------------------------------------
+//-------------------------------------------------------------------------
 static void out_addr_near(op_t &x)
 {
   ea_t orig_ea = toEA(codeSeg(x.addr, x.n), x.addr);
   ea_t ea = xlat(orig_ea);
-
   if ( !out_name_expr(x, ea, BADADDR) )
   {
     out_tagon(COLOR_ERROR);
@@ -306,7 +305,7 @@ bool idaapi outop(op_t &x)
 
             if ( lorig_ea != lea )
               print_orig_ea(x);
-            }
+          }
           break;
         case rAbsXi:
           out_symbol('(');
@@ -365,10 +364,7 @@ void idaapi assumes(ea_t ea)
       {
         if ( ptr != buf )
           APPCHAR(ptr, end, ' ');
-        if ( curval == BADSEL && ( reg == rD || reg == rB || reg == rPB ) )
-          ptr += qsnprintf(ptr, end-ptr, "%s=%d", ph.regNames[reg], curval);
-        else
-          ptr += qsnprintf(ptr, end-ptr, "%s=%a", ph.regNames[reg], curval);
+        ptr += qsnprintf(ptr, end-ptr, "%s=%a", ph.regNames[reg], curval);
       }
     }
   }

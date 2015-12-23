@@ -74,7 +74,6 @@ MAKE_IMMD:
         default:
           goto MAKE_IMMD;
       }
-      break;
 
     case o_mem:
     case o_mem_far:
@@ -145,7 +144,8 @@ int idaapi emu(void)
   if ( Feature & CF_USE2 ) handle_operand(cmd.Op2, 1);
   if ( Feature & CF_CHG1 ) handle_operand(cmd.Op1, 0);
   if ( Feature & CF_CHG2 ) handle_operand(cmd.Op2, 0);
-  if ( Feature & CF_JUMP ) QueueSet(Q_jumps,cmd.ea);
+  if ( Feature & CF_JUMP )
+    QueueSet(Q_jumps, cmd.ea);
 
   if ( flow )
     ua_add_cref(0,cmd.ea+cmd.size,fl_F);
@@ -155,7 +155,10 @@ int idaapi emu(void)
 
   if ( opinfo.itype == M65816_jmp || opinfo.itype == M65816_jsr )
   {
-    if ( opinfo.addr == ABS_INDIR || opinfo.addr == ABS_INDIR_LONG || opinfo.addr == ABS_IX_INDIR ) {
+    if ( opinfo.addr == ABS_INDIR
+      || opinfo.addr == ABS_INDIR_LONG
+      || opinfo.addr == ABS_IX_INDIR )
+    {
       QueueSet(Q_jumps,cmd.ea);
     }
   }

@@ -8,10 +8,10 @@ extern struct instruc_t Instructions[];
 // m65* CPUs implements.
 //
 // One should _never_ put anything else in 'ins.hpp'
-// but the instruction types: IDA possesses build scripts that 
+// but the instruction types: IDA possesses build scripts that
 // will parse ins.hpp files, and build a database of
 // <cpu> + <itype> -> <autocomment>
-// Where 'autocomment' is the contents of the comment string 
+// Where 'autocomment' is the contents of the comment string
 // associated to the itype.
 enum m65_itype_t
 {

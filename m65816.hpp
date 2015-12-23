@@ -33,7 +33,8 @@
 #define UAS_NOENS       0x0200          // don't specify start addr in the .end directive
 
 
-enum M65816_registers {
+enum M65816_registers
+{
   rA,   // Accumulator
   rX,   // X index
   rY,   // Y index
@@ -205,9 +206,6 @@ const struct opcode_info_t &get_opcode_info(uint8 opcode);
      || ((op) == M65816_plp) \
      || ((op) == M65816_plx) \
      || ((op) == M65816_ply))
-
-struct SuperFamicomCartridge;
-extern SuperFamicomCartridge cartridge;
 
 //------------------------------------------------------------------------
 void    idaapi header(void);

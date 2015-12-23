@@ -7,7 +7,7 @@
 
 enum btsource_t
 {
-  BT_NONE  = 0,
+  BT_NONE = 0,
   BT_STACK,
   BT_A,
   BT_X,

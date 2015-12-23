@@ -112,7 +112,6 @@ int32 backtrack_value(ea_t from_ea, uint8 size, btsource_t source)
   switch ( source )
   {
     case BT_STACK:
-    {
       while ( true )
       {
         BTWALK_PREAMBLE(cur_ea, opcode, itype);
@@ -160,17 +159,15 @@ int32 backtrack_value(ea_t from_ea, uint8 size, btsource_t source)
           return -1;
         }
       }
-    }
-    break;
+      break;
     case BT_A:
-    {
       while ( true )
       {
         BTWALK_PREAMBLE(cur_ea, opcode, itype);
         uint8 opsize = from_ea - cur_ea;
         uint8 cur_ea_acc_is_16 = is_acc_16_bits(cur_ea);
         uint8 new_size = cur_ea_acc_is_16 ? 2 : 1;
-        switch( itype )
+        switch ( itype )
         {
           // All these modify A in a way we cannot
           // easily determine its value anymore.
@@ -199,7 +196,7 @@ int32 backtrack_value(ea_t from_ea, uint8 size, btsource_t source)
             break;
           case M65816_lda:    // Load A from memory
             if ( opcode == 0xa9 ) // LDA    imm
-              return (opsize == 3 ? get_word(cur_ea + 1) : get_byte(cur_ea + 1));
+              return opsize == 3 ? get_word(cur_ea + 1) : get_byte(cur_ea + 1);
             else
               return -1;
           case M65816_pla:    // Pull A
@@ -214,17 +211,15 @@ int32 backtrack_value(ea_t from_ea, uint8 size, btsource_t source)
             return backtrack_value(cur_ea, new_size, BT_Y);
         }
       }
-    }
-    break;
+      break;
     case BT_X:
-    {
       while ( true )
       {
         BTWALK_PREAMBLE(cur_ea, opcode, itype);
         uint8 opsize = from_ea - cur_ea;
         uint8 cur_ea_xy_is_16 = is_xy_16_bits(cur_ea);
         uint8 new_size = cur_ea_xy_is_16 ? 2 : 1;
-        switch( itype )
+        switch ( itype )
         {
           // All these modify X in a way we cannot
           // easily determine its value anymore.
@@ -236,7 +231,7 @@ int32 backtrack_value(ea_t from_ea, uint8 size, btsource_t source)
             return -1;
           case M65816_ldx:    // Load X from memory
             if ( opcode == 0xa2 ) // LDX    imm
-              return (opsize == 3 ? get_word(cur_ea + 1) : get_byte(cur_ea + 1));
+              return opsize == 3 ? get_word(cur_ea + 1) : get_byte(cur_ea + 1);
             else
               return -1;
           case M65816_plx:    // Pull X
@@ -249,17 +244,15 @@ int32 backtrack_value(ea_t from_ea, uint8 size, btsource_t source)
             return backtrack_value(cur_ea, new_size, BT_Y);
         }
       }
-    }
-    break;
+      break;
     case BT_Y:
-    {
       while ( true )
       {
         BTWALK_PREAMBLE(cur_ea, opcode, itype);
         uint8 opsize = from_ea - cur_ea;
         uint8 cur_ea_xy_is_16 = is_xy_16_bits(cur_ea);
         uint8 new_size = cur_ea_xy_is_16 ? 2 : 1;
-        switch( itype )
+        switch ( itype )
         {
           // All these modify X in a way we cannot
           // easily determine its value anymore.
@@ -271,7 +264,7 @@ int32 backtrack_value(ea_t from_ea, uint8 size, btsource_t source)
             return -1;
           case M65816_ldy:    // Load Y from memory
             if ( opcode == 0xa0 ) // LDY    imm
-              return (opsize == 3 ? get_word(cur_ea + 1) : get_byte(cur_ea + 1));
+              return opsize == 3 ? get_word(cur_ea + 1) : get_byte(cur_ea + 1);
             else
               return -1;
           case M65816_ply:    // Pull Y
@@ -282,14 +275,12 @@ int32 backtrack_value(ea_t from_ea, uint8 size, btsource_t source)
             return backtrack_value(cur_ea, new_size, BT_X);
         }
       }
-    }
-    break;
+      break;
     case BT_DP:
-    {
       while ( true )
       {
         BTWALK_PREAMBLE(cur_ea, opcode, itype);
-        switch( itype )
+        switch ( itype )
         {
           // All these modify D in a way we cannot
           // easily determine its value anymore.
@@ -300,8 +291,7 @@ int32 backtrack_value(ea_t from_ea, uint8 size, btsource_t source)
             return backtrack_value(cur_ea, size, BT_A);
         }
       }
-    }
-    break;
+      break;
     default:
       msg("WARNING: backtrack_value() of unsupported BT-type: %d\n", source);
       break;
