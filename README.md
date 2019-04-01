@@ -1,11 +1,11 @@
 SNES 65816 Processor Plugin for IDA
 ===================================
 
-This is a IDA processor plugin module for SNES 65816 CPU.
+This is a IDA 6.x processor plugin module for SNES 65816 CPU.
 
-**NOTICE**:
-The 65816 processor plugin was initially forked from [IDA SDK 6.8](https://www.hex-rays.com/products/ida/support/download.shtml),
-published by [Hex-Rays](https://www.hex-rays.com/).
+**IMPORTANT NOTICE**:
+The 65816 processor plugin was forked from [IDA SDK 6.8](https://www.hex-rays.com/products/ida/support/download.shtml),
+published by [Hex-Rays](https://www.hex-rays.com/). In IDA 7.0, Hey-Rays has made breaking changes on IDA API design and has been released an [migrating guide](https://www.hex-rays.com/products/ida/7.0/docs/api70_porting_guide.shtml). I don't plan to maintain this project to follow new IDA API design at the moment. I think I will try to make an IDAPython plugin from scratch instead, when I seriously need an extension for SNES reverse engineering, but I really don't need that very soon.
 
 How to compile
 --------------
